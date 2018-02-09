@@ -1,0 +1,336 @@
+<!doctype html>
+<html  lang="de">
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Secular+One"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,100,100italic,300,300italic,500,500italic,700,700italic"/>
+
+        <base href="/" />
+        <link rel="icon" type="image/png" href="/img/favicon/favicon_16.png" sizes="16x16"/>
+        <link rel="icon" type="image/png" href="/img/favicon/favicon_32.png" sizes="32x32"/>
+        <link rel="icon" type="image/png" href="/img/favicon/favicon_96.png" sizes="96x96"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+        <meta name="msapplication-TileColor" content="#042b48"/>
+        <meta name="msapplication-TileImage" content="/img/favicon/tile_144.png">
+        <meta name="msapplication-square70x70logo" content="/img/favicon/tile_small.png"/>
+        <meta name="msapplication-square150x150logo" content="/img/favicon/tile_medium.png"/>
+        <meta name="msapplication-square310x310logo" content="/img/favicon/tile_large.png"/>
+        <script>
+            try{
+                document.cookie && document.cookie.match(/(^| )dl_session=[^;]+/) && document.documentElement.classList.add('dl_user_logged_in');
+            }catch(e){
+                console.error(e);
+            }
+        </script>
+		<link rel="stylesheet" type="text/css" href="css/deepl.css?v=3196379156" /><script src='js/all3.min.js?v=3505201803'></script>
+        <script src='js/deepl.min.js?v=3093911585'></script>
+
+        <title>DeepL API reference</title>
+            <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-8191720-3', 'auto');
+                ga('send', 'pageview');
+    </script>
+    </head>
+    <body class='dl_body'>
+        <header class='dl_header'>
+    <div>
+        <nav id='dl_menu' class='dl_menu_bar dl_menu_bar--desktop'>
+            <a class='dl_header_logo' href='/home'><span>DeepL</span></a>
+            <div class='dl_menu_items'><a id='dl_menu_translator' href='/translator'>Übersetzer</a><a id='dl_menu_linguee' href='https://www.linguee.com' target='_blank'>Linguee<span class='dl_external_link_hint'>&nbsp;</<span></a><a id='dl_api_info_menu' onclick='kDeepL.openDialog(this, "#dl_api_menu");'>API <span class='dl_menu_hint'>&nbsp;</<span></a><a id='dl_menu_press' href='press.html'>Presseinformationen</a></div>
+        </nav>
+        <nav id='dl_menu' class='dl_menu_bar dl_menu_bar--mobile'>
+            <a class='dl_header_logo' href='/home'><span>DeepL</span></a>
+            <div class='dl_menu_items'>
+                <a onClick='kDeepL.openDialog(this, "#dl_mobile_menu")' >
+                    <svg  version="1.0" class="dl_menu_icon dl_burger_icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="30" viewBox="0 0 36 30" xml:space="preserve">
+                        <rect x="0" y="0" width="36" height="5" />
+                        <rect x="0" y="12.5" width="36" height="5" />
+                        <rect x="0" y="25" width="36" height="5" />
+                    </svg>
+                </a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class='office'></div>
+<!-- ====================================== -->
+<article id='api_reference_main_headline_article' class="dl_top_element dl_top_element--default_spacing" style='background-color: #fff;'>
+    <section class='dl_section dl_default_text_section'>
+        <h1>DeepL API - reference documentation (v1) </h1>
+    </section>
+</article>
+
+<!-- ====================================== -->
+
+<article id='api_reference_general_article' class="dl_top_element dl_top_element--default_spacing" style='background-color: #f8f8f8;'>
+    <section class='dl_section dl_default_text_section'>
+        <h1>Access to the DeepL Translator API</h1>
+        <p>Use the DeepL Translator API to integrate the world's best translation technology.</p>
+        <p>The DeepL Translator API allows you to incorporate the DeepL Translator into your own products and services.
+            Besides using it in your favourite CAT tools or integrating it into your intranet services,
+            our API lends itself to many more of your in-house software applications.</p>
+
+        <p>The standardized programming interface
+            makes integration into your own software extremely straightforward.
+        </p>
+        <p>Your privacy and confidentiality are important to us - we don't save any texts sent to the DeepL Translator API, and we don't use them to improve the quality of the service.</p>
+
+        <p>Click <a href="api-contact.html">here</a> to contact our sales team for access.</p>
+
+        <h1>Summary</h1>
+        <p>The DeepL API is accessible through a REST interface. All functions support GET and POST methods, although POST requests are recommended. Request parameters are used to pass information to the API, results are returned in a JSON representation.
+        Request parameters must be UTF-8 encoded.
+        Authentication is based on fixed keys, SSL handling transport security.  </p>
+        <p>The v1 API supports only the <i>translate</i>-function. See below for full documentation.
+        </p>
+    </section>
+</article>
+
+<!-- ====================================== -->
+
+<article id='api_reference_translate_article' class="dl_top_element dl_top_element--default_spacing" style='background-color: #f8f8f8;'>
+    <section class='dl_section dl_default_text_section'>
+        <h1><b>translate</b> Function</h1>
+        <p>The translate function is available at <a href="https://api.deepl.com/translate">https://api.deepl.com/v1/translate</a>. The call supports the following parameters:</p>
+        <p>
+        <table>
+           <tr><th>Parameter</th><th></th><th>Description</th></tr>
+            <tr><td class="parameter_name">text</td><td>Required</td><td>Text to be translated. Only UTF8-encoded plain text is supported.
+                The parameter may be specified multiple times and translations are returned in the same order as in the input. Each of the parameter values may contain multiple sentences.</td></tr>
+            <tr><td class="parameter_name">source_lang</td><td>Optional</td><td>Language of the text to be translated. Can be one of the following
+            <ul>
+                <li>"EN"</li>
+                <li>"DE"</li>
+                <li>"FR"</li>
+                <li>"ES"</li>
+                <li>"IT"</li>
+                <li>"NL"</li>
+                <li>"PL"</li>
+            </ul>
+            If parameter is omitted, the API will detect the language of the text and translate it.
+            </td></tr>
+            <tr><td class="parameter_name">target_lang</td><td>Required</td><td>The language into which you want to translate. Can be one of the following
+            <ul>
+                <li>"EN"</li>
+                <li>"DE"</li>
+                <li>"FR"</li>
+                <li>"ES"</li>
+                <li>"IT"</li>
+                <li>"NL"</li>
+                <li>"PL"</li>
+            </ul></td></tr>
+        <tr><td class="parameter_name">tag_handling</td><td>Optional</td><td>Sets which kind of tags should be handled. Comma-separated list of one or more of the following values:
+            <ul>
+                <li>"xml"</li>
+            </ul>
+                See section <b>Tag handling</b> below for more information.
+        </td></tr>
+        <tr><td class="parameter_name">split_sentences</td><td>Optional</td><td>Sets whether the translation engine should first split the input into sentences. This is enabled
+                by default. Possible values are
+                <ul>
+                    <li>"0"</li>
+                    <li>"1" (default)</li>
+                </ul>
+                For applications which are sending one sentence per text parameter, it is advisable to set split_sentences=0, in order to prevent the engine from splitting the sentence unintentionally.
+            </td></tr>
+        <tr><td class="parameter_name">preserve_formatting</td><td>Optional</td><td>Sets whether the translation engine should preserve some aspects of the formatting, even if it would usually
+                correct some aspects. Possible values are
+                <ul>
+                    <li>"0" (default)</li>
+                    <li>"1"</li>
+                </ul>
+
+                The formatting aspects controlled by the setting include:
+                <ul>
+                    <li>punctuation at the beginning and end of the sentence, </li>
+                    <li>upper/lower case at the beginning of the sentence.</li>
+            </td></tr>
+        <tr><td class="parameter_name">auth_key</td><td>Required</td><td>The authentication key as provided to you. </td></tr>
+      </table>
+
+      <h2>Example Request</h2>
+      <pre>GET /v1/translate?text=Hallo%20Welt!&target_lang=EN&auth_key=123</pre>
+
+      <h2>Example Response</h2>
+      <pre>
+{
+  "translations": [
+    {
+      "detected_source_language": "DE",
+      "text": "Hello World!"
+    }
+  ]
+}
+     </pre>
+     <h2>Return value</h2>
+     <p>The translate function returns a JSON representation of the translations in the order
+      the <i>text</i> parameters have been specified.
+     </p>
+
+
+     <table>
+        <tr><th>Return value</th><th>Description</th></tr>
+         <tr>
+             <td class="parameter_name">detected_source_language</td>
+             <td>The language which has been detected for the source text. It reflects the
+                 value of the <i>source_lang</i> parameter if it has been specified.</td>
+         </tr>
+         <tr>
+             <td class="parameter_name">text</td>
+             <td>The translated text.</td>
+         </tr>
+     </table>
+
+
+     <h2>Error handling</h2>
+     <p>Errors are indicated by HTTP error codes. The following error codes are used:
+        <table>
+            <tr><th>Code</th><th>Description</th></tr>
+        <tr><td>400</td><td>Wrong request, please check error message and your parameters.</td></tr>
+            <tr><td>403</td><td>Authorization failed. Please supply a valid <i>auth_key</i> parameter.</td></tr>
+            <tr><td>429</td><td>Too many requests. Please wait and send your request once again.</td></tr>
+            <tr><td>456</td><td>Quota exceeded. The character limit has been reached.</td></tr>
+        </table>
+
+            <p>Additional information may be provided by a JSON
+     response that contains more details about the error:</p>
+     <pre>
+{
+  "message": "Parameter 'target_lang' not specified."
+}</pre>
+
+        <h2 class="dl_headline">Tag handling</h2>
+        <p>By default the translation engine does not take tags into account. By setting the <i>tag_handling</i> parameter accordingly,
+            you can enable various sets of special tag handlers.</p>
+        <p><b>xml</b></p>
+        <p>All XML tags that do not contain any text are treated as placeholders. For example, the translation engine will try to copy tags "&lt;x&gt;&lt;/x&gt;" and "&lt;y/&gt;"
+            into the output sentence, trying to place them at the proper position in the translation.
+
+        <p>For XML tags which enclose words, the translation engine tries to find matching words in the translated sentence and
+        enclose them with the same tags. If no matching words are found, the tags are removed.</p>
+
+        <p>All XML tags are allowed, there is no restriction. Attributes are copied together with tags.</p>
+
+        <p></p>
+
+
+        <h2 class="dl_headline">Limits</h2>
+        <p>The request size should not exceed 30kbytes. The maximum number of texts to be translated within one request should not exceed 50. </p>
+        <p>Please ensure your client does not exceed the limits as specified in the quota documentation delivered to you. Your client should be prepared to back-off if you receive the HTTP response code <i>429</i> and retry the request later.  </p>
+
+
+        <h2 class="dl_headline">Authentication</h2>
+        <p>When establishing the connection, you should verify that the the correct <i>auth_key</i> parameter has been provided using the API key provided. You should also verify  whether the SSL certificate for <i>api.deepl.com</i> is valid.
+        </p>
+
+    </section>
+</article>
+
+<!-- ====================================== -->
+
+        </main>
+            <footer class='dl_footer'>
+        <div>
+            <nav class='dl_footer_inner'>
+                <div class='dl_menu_items'>
+                    <a href='privacy.html'>Datenschutz</a>
+                    <a href='publisher.html'>Impressum</a>
+                </div>
+            </nav>
+        </div>
+    </footer>
+            <div id='dl_login' class='dl_dropdown_dialog'>
+    <form method='POST'>
+        <input type='hidden' name='action' value='Login'>
+        <div class='dl_row dl_only_send_password_link'>
+            <h3>Passwort zurücksetzen</h3>
+            <p>Geben Sie Ihre E-Mail-Adresse ein und drücken Sie auf „Absenden“. Sie erhalten bekommen dann einen Link zugeschickt, mit dem Sie Ihr Passwort ändern können.</p>
+        </div>
+        <ul id='dl_errors'></ul>
+        <div class='dl_row'>
+            <label id='dl_label_email' for='dl_login_email'>E-Mail</label>
+            <input id='dl_login_email' name='email' type='email'>
+        </div>
+        <div class='dl_row dl_only_login'>
+            <label id='dl_label_password' for='dl_login_password'>Passwort</label>
+            <input id='dl_login_password' name='password' type='password'>
+        </div>
+        <div class='dl_row dl_only_login'>
+            <input id='dl_login_keep' name='keepLogin' type='checkbox' value='1'>&nbsp;<label for='dl_login_keep' class='dl_checkbox_label'>Angemeldet bleiben</label>
+        </div>
+        <div class='dl_row dl_link'>
+            <a class='dl_link dl_only_login' onclick='kDeepL.openSendPasswordLink(this);'>Passwort vergessen?</a>
+            <a class='dl_link dl_only_send_password_link' onclick='kDeepL.openLogin(this);'>Zur Anmeldung</a>
+        </div>
+        <div class='dl_row dl_buttons'>
+            <button type='button' class='dl_button' onclick='kDeepL.closeDialog(this);'>Abbrechen</a>
+            <button type='button' class='dl_button dl_only_login' onclick='kDeepL.login(this);'>Anmelden</button>
+            <button type='button' class='dl_button dl_only_send_password_link' onclick='kDeepL.sendPasswordLink(this);'>Absenden</button>
+        </div>
+    </form>
+</div>
+<div id='dl_success' class='dl_dropdown_dialog'>
+    <div class='dl_row'>
+        <h3></h3>
+        <p></p>
+    </div>
+    <div class='dl_row dl_buttons'>
+        <button type='button' class='dl_button' onclick='kDeepL.closeDialog(this);'>Schließen</a>
+    </div>
+</div>
+<div id='dl_account_menu' class='dl_dropdown_dialog dl_dropdown_dialog--menu'>
+    <ul>
+        <li><a href='/profile.html'>Profil</a></li>
+        <li><a href='/subscription.html'>Vertrag</a></li>
+        <li><a href='/settlement.html'>Abrechnung</a></li>
+        <li><a href='/consumption.html'>Verbrauch</a></li>
+        <li><a onclick='kDeepL.logout(this);'>Abmelden</a></li>
+    </ul>
+</div>
+<div id='dl_about_menu' class='dl_dropdown_dialog dl_dropdown_dialog--menu'>
+    <ul>
+        <li><a href='/jobs.html'>DeepL sucht Mitarbeiter</a></li>
+        <li><a href='/press.html'>Presseinformationen</a></li>
+    </ul>
+</div>
+
+<div id='dl_waiting' class='dl_waiting'>
+    <img class='dl_waiting_icon' src='/img/waiting.gif'>
+    <div class='dl_waiting_message'></div>
+</div>
+
+<div id='dl_mobile_menu' class='dl_dropdown_dialog dl_dropdown_dialog--menu'>
+    <ul>
+        <li><a href='/translator'>Übersetzer</a></li>
+        <li><a href='https://www.linguee.com' target='_blank'>Linguee<span class='dl_external_link_hint'>&nbsp;</<span></a></li>
+        <li><a href='/press.html'>Presseinformationen</a></li>
+        <li><h1>API</h1></li>
+        <li><a href='/api-contact.html'>Kontakt</a></li>
+        <li><a href='/api-reference.html'>Technische Dokumentation</a></li>
+
+    </ul>
+</div>
+
+<div id='dl_administration_menu' class='dl_dropdown_dialog dl_dropdown_dialog--menu'>
+    <ul>
+        <li><a href='/PHP/administration/index.php'>Overview</a></li>
+        <li><a href='/PHP/administration/accounts.php'>Accounts</a></li>
+        <li><a href='/PHP/administration/subscriptions.php'>Subscriptions</a></li>
+        <li><a id='dl_messages_menu' href='/PHP/administration/messages.php'>Messages</a></li>
+    </ul>
+</div>
+
+<div id='dl_api_menu' class='dl_dropdown_dialog dl_dropdown_dialog--menu'>
+    <ul>
+        <li><a href='/api-contact.html'>Kontakt</a></li>
+        <li><a href='/api-reference.html'>Technische Dokumentation</a></li>
+    </ul>
+</div>    </body>
+</html>
